@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+
+<mapper namespace="com.qst.stat.mapper.StatMapper">
+ <select id="loadCustomerAreaStatList" resultType="com.qst.stat.domain.BaseEntity">
+             SELECT
+                  address AS NAME,
+                  COUNT(*) AS VALUE
+
+                FROM
+            bus_customer b
+        GROUP BY
+            b.address
+        ORDER BY
+
+        VALUE
+            DESC
+ </select>
+    <select id="toCompanyYearGradeStat" resultType="com.qst.stat.domain.BaseEntity">
+
+        SELECT  opername name, SUM(price) value from bus_rent
+        WHERE DATE_FORMAT(createtime,'%Y') = #{year}
+         GROUP BY opername
+        ORDER BY value desc
+
+    </select>
+
+    <select id="loadCompanyYearGradeStat" resultType="java.lang.Double">
+        SELECT price from bus_rent WHERE DATE_FORMAT(createtime,'%Y%m') = CONCAT(#{year},'01')
+        UNION ALL
+        SELECT price from bus_rent WHERE DATE_FORMAT(createtime,'%Y%m') =CONCAT(#{year},'02')
+        UNION ALL
+        SELECT price from bus_rent WHERE DATE_FORMAT(createtime,'%Y%m') =CONCAT(#{year},'03')
+        UNION ALL
+        SELECT price from bus_rent WHERE DATE_FORMAT(createtime,'%Y%m') =CONCAT(#{year},'04')
+        UNION ALL
+        SELECT price from bus_rent WHERE DATE_FORMAT(createtime,'%Y%m') =CONCAT(#{year},'05')
+        UNION ALL
+        SELECT price from bus_rent WHERE DATE_FORMAT(createtime,'%Y%m') =CONCAT(#{year},'06')
+        UNION ALL
+        SELECT price from bus_rent WHERE DATE_FORMAT(createtime,'%Y%m') =CONCAT(#{year},'07')
+        UNION ALL
+        SELECT price from bus_rent WHERE DATE_FORMAT(createtime,'%Y%m') =CONCAT(#{year},'08')
+        UNION ALL
+        SELECT price from bus_rent WHERE DATE_FORMAT(createtime,'%Y%m') =CONCAT(#{year},'09')
+        UNION ALL
+        SELECT price from bus_rent WHERE DATE_FORMAT(createtime,'%Y%m') =CONCAT(#{year},'10')
+        UNION ALL
+        SELECT price from bus_rent WHERE DATE_FORMAT(createtime,'%Y%m') =CONCAT(#{year},'11')
+        UNION ALL
+        SELECT price from bus_rent WHERE DATE_FORMAT(createtime,'%Y%m') =CONCAT(#{year},'12')
+    </select>
+</mapper>
